@@ -5,12 +5,12 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signInAction } from "@/app/[locale]/(auth)/actions/user";
-import { redirect } from "@/i18n/navigation";
+import { signInAction } from "@/app/(auth)/actions/user";
 
 import { useTranslations } from "next-intl";
 
 import { useLocale } from "next-intl";
+import { redirect } from "next/navigation";
 
 export function LoginForm({ className, ...props }: React.ComponentProps<"form">) {
   const locale = useLocale();
@@ -22,7 +22,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"form">)
   async function handleSubmit(formData: FormData) {
     setError(null);
     const result = await signInAction(formData);
-    if (result.success) redirect({ href: "/home", locale });
+    if (result.success) redirect("/home");
     if (!result?.success) {
       setError(result.message);
     }

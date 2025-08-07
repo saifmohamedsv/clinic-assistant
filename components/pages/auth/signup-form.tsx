@@ -5,14 +5,13 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signInAction, signUpAction } from "@/app/[locale]/(auth)/actions/user";
+import { signInAction, signUpAction } from "@/app/(auth)/actions/user";
 import { Role } from "@/types/roles";
-import { redirect, Link } from "@/i18n/navigation";
 
-import { useLocale } from "next-intl";
+import { redirect } from "next/navigation";
+import Link from "next/link";
 
 export function SignupForm({ className, ...props }: React.ComponentProps<"form">) {
-  const locale = useLocale();
   const [error, setError] = useState<string | null>(null);
   const [isPending] = useTransition();
 
@@ -23,7 +22,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"form">
 
     if (result.success) {
       await signInAction(formData);
-      redirect({ href: "/home", locale });
+      redirect("/home");
     }
 
     if (!result?.success) {
@@ -74,7 +73,7 @@ export function SignupForm({ className, ...props }: React.ComponentProps<"form">
       </div>
       <div className="text-center text-sm">
         Already have an account?{" "}
-        <Link href={{ href: "/sign-in" }} className="underline underline-offset-4">
+        <Link href={"/sign-in"} className="underline underline-offset-4">
           Login
         </Link>
       </div>
