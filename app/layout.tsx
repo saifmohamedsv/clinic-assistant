@@ -22,6 +22,8 @@ import { locales, defaultLocale } from "../messages/config";
 import enMessages from "../messages/en.json";
 import arMessages from "../messages/ar.json";
 import { getLocale } from "next-intl/server";
+import IntlProviderWrapper from "@/components/IntlProviderWrapper";
+import { getServerLocale } from "@/lib/get-locale";
 
 export default async function RootLayout({
   children,
@@ -31,16 +33,18 @@ export default async function RootLayout({
   params?: { locale?: string };
 }>) {
   // Detect locale from params or fallback
-  const locale = await getLocale();
+  const locale = await getServerLocale();
+  console.log(locale);
+
   // const locale = params?.locale && locales.includes(params.locale) ? params.locale : defaultLocale;
   const messages = locale === "ar" ? arMessages : enMessages;
   const dir = locale === "ar" ? "rtl" : "ltr";
   return (
     <html suppressHydrationWarning className="light" lang={locale} dir={dir}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
+        <IntlProviderWrapper locale={locale} messages={messages}>
           {children}
-        </NextIntlClientProvider>
+        </IntlProviderWrapper>
       </body>
     </html>
   );
