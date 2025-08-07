@@ -1,0 +1,61 @@
+{
+  "app": {
+    "title": "Clinic Assistant"
+  },
+  "breadcrumb": {
+    "dashboard": "Dashboard",
+    "patients": "Patients"
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "login": {
+      "heading": "Login to your account",
+      "subheading": "Enter your email below to login to your account",
+      "button": "Login"
+    },
+    "email": "Email",
+    "emailPlaceholder": "m@example.com",
+    "password": "Password",
+    "forgotPassword": "Forgot your password?",
+    "loggingIn": "Logging in..."
+  },
+  "dashboard": {
+    "welcomeBack": "Welcome back{name, select, undefined {} other {, {name}}}!",
+    "overview": "Here's a quick overview of your clinic today.",
+    "patients": "Patients",
+    "visits": "Visits",
+    "queue": "Active Queue",
+    "prescriptions": "Prescriptions"
+  },
+  "sidebar": {
+    "logout": "Logout",
+    "home": "Home"
+  },
+  "patients": {
+    "columns": {
+      "name": "Name",
+      "phone": "Phone",
+      "age": "Age",
+      "visitCount": "Visits"
+    },
+    "actions": {
+      "openMenu": "Open menu",
+      "label": "Actions",
+      "viewDetails": "View details",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "search": {
+      "placeholder": "Search by phone..."
+    },
+    "table": {
+      "noResults": "No results found"
+    }
+  },
+  "common": {
+    "error": {
+      "unknown": "An unknown error occurred. Please try again."
+    }
+  }
+}

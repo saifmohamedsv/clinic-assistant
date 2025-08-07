@@ -1,0 +1,62 @@
+{
+  "app": {
+    "title": "مساعد العيادة"
+  },
+  "breadcrumb": {
+    "dashboard": "لوحة التحكم",
+    "patients": "المرضى"
+  },
+  "auth": {
+    "signIn": "تسجيل الدخول",
+    "signUp": "إنشاء حساب",
+    "login": {
+      "heading": "تسجيل الدخول إلى حسابك",
+      "subheading": "أدخل بريدك الإلكتروني أدناه لتسجيل الدخول إلى حسابك",
+      "button": "تسجيل الدخول"
+    },
+    "email": "البريد الإلكتروني",
+    "emailPlaceholder": "m@example.com",
+    "password": "كلمة المرور",
+    "forgotPassword": "هل نسيت كلمة المرور؟",
+    "loggingIn": "جارٍ تسجيل الدخول..."
+  },
+  "dashboard": {
+    "home": "الرئيسية",
+    "patients": "المرضى",
+    "prescriptions": "الوصفات الطبية",
+    "visits": "الزيارات",
+
+    "welcomeBack": "مرحبًا بعودتك{name, select, undefined {} other {، {name}}}!",
+    "overview": "إليك لمحة سريعة عن عيادتك اليوم.",
+    "queue": "قائمة الانتظار النشطة"
+  },
+  "patients": {
+    "columns": {
+      "name": "الاسم",
+      "phone": "رقم الهاتف",
+      "age": "العمر",
+      "visitCount": "عدد الزيارات"
+    },
+    "actions": {
+      "openMenu": "فتح القائمة",
+      "label": "إجراءات",
+      "viewDetails": "عرض التفاصيل",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "search": {
+      "placeholder": "ابحث برقم الهاتف..."
+    },
+    "table": {
+      "noResults": "لا توجد نتائج"
+    }
+  },
+  "sidebar": {
+    "logout": "تسجيل الخروج"
+  },
+  "common": {
+    "error": {
+      "unknown": "حدث خطأ غير معروف. يرجى المحاولة مرة أخرى."
+    }
+  }
+}
