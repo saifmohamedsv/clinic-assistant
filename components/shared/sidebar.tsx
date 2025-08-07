@@ -2,12 +2,12 @@
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Home, Users, Calendar, FileText, Settings, LogOut, ChevronLeft, ChevronRight } from "lucide-react";
-import { Link } from "@/i18n/navigation";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { User } from "@prisma/client";
 import { useLocale } from "next-intl";
+import Link from "next/link";
 
 type NavItem = {
   icon: React.ElementType;
