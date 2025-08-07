@@ -2,11 +2,12 @@
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Home, Users, Calendar, FileText, Settings, LogOut, ChevronLeft, ChevronRight } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { User } from "@prisma/client";
+import { useLocale } from "next-intl";
 
 type NavItem = {
   icon: React.ElementType;
@@ -23,6 +24,7 @@ const navItems: NavItem[] = [
 ];
 
 const Sidebar = () => {
+  const locale = useLocale();
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(true);
   const session = useSession();
@@ -58,7 +60,7 @@ const Sidebar = () => {
               return (
                 <Tooltip key={index}>
                   <TooltipTrigger asChild>
-                    <Link href={item.href}>
+                    <Link href={{ pathname: item.href }}>
                       <Button
                         variant={isActive ? "default" : "ghost"}
                         className={`justify-start h-12 rounded-lg ${isCollapsed ? "w-full px-0" : "w-full px-4"}`}
@@ -111,7 +113,7 @@ const Sidebar = () => {
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
-                onClick={() => signOut()}
+                onClick={() => signOut({ redirect: true, callbackUrl: `/${locale}/sign-in` })}
                 variant="ghost"
                 className={`justify-start h-12 rounded-lg ${isCollapsed ? "w-full px-0" : "w-full px-4"}`}
               >
