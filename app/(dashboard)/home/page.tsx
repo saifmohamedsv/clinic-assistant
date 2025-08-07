@@ -16,7 +16,7 @@ export default function Dashboard() {
   const stats = useDashboardStats();
 
   return (
-    <div className="flex flex-col gap-6 p-6">
+    <div className="flex flex-col gap-6">
       {/* Breadcrumb */}
       <Breadcrumb items={[breadCrumpT("dashboard")]} />
 

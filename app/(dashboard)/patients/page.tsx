@@ -11,7 +11,7 @@ export default function Patients() {
   const columns = getColumns(t);
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto">
       <Breadcrumb items={["dashboard", "patients"]} />
       <DataTable
         columns={columns}
