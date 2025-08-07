@@ -9,11 +9,9 @@ import { signInAction } from "@/app/(auth)/actions/user";
 
 import { useTranslations } from "next-intl";
 
-import { useLocale } from "next-intl";
 import { redirect } from "next/navigation";
 
 export function LoginForm({ className, ...props }: React.ComponentProps<"form">) {
-  const locale = useLocale();
   const [error, setError] = useState<string | null>(null);
   const [isPending] = useTransition();
   const t = useTranslations("auth");
