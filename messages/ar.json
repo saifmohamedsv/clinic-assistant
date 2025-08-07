@@ -4,7 +4,8 @@
   },
   "breadcrumb": {
     "dashboard": "لوحة التحكم",
-    "patients": "المرضى"
+    "patients": "المرضى",
+    "settings" :"الإعدادات"
   },
   "auth": {
     "signIn": "تسجيل الدخول",
@@ -29,6 +30,12 @@
     "welcomeBack": "مرحبًا بعودتك{name, select, undefined {} other {، {name}}}!",
     "overview": "إليك لمحة سريعة عن عيادتك اليوم.",
     "queue": "قائمة الانتظار النشطة"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "description": "إدارة إعدادات الحساب والتفضيلات.",
+    "language": "اللغة",
+    "languageDescription": "اختر لغتك المفضلة"
   },
   "patients": {
     "columns": {

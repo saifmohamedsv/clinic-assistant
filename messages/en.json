@@ -4,7 +4,8 @@
   },
   "breadcrumb": {
     "dashboard": "Dashboard",
-    "patients": "Patients"
+    "patients": "Patients",
+    "settings": "Settings"
   },
   "auth": {
     "signIn": "Sign In",
@@ -31,6 +32,12 @@
   "sidebar": {
     "logout": "Logout",
     "home": "Home"
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Manage your account settings and preferences.",
+    "language": "Language",
+    "languageDescription": "Select your preferred language"
   },
   "patients": {
     "columns": {
