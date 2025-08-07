@@ -5,19 +5,24 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signInAction } from "@/app/(auth)/actions/user";
-import Link from "next/link";
-import { redirect } from "next/navigation";
+import { signInAction } from "@/app/[locale]/(auth)/actions/user";
+import { redirect } from "@/i18n/navigation";
+
+import { useTranslations } from "next-intl";
+
+import { useLocale } from "next-intl";
 
 export function LoginForm({ className, ...props }: React.ComponentProps<"form">) {
+  const locale = useLocale();
   const [error, setError] = useState<string | null>(null);
   const [isPending] = useTransition();
+  const t = useTranslations("auth");
+  const tCommon = useTranslations("common");
 
   async function handleSubmit(formData: FormData) {
     setError(null);
     const result = await signInAction(formData);
-    // You may want to handle success or error here
-    if (result.success) redirect("/home");
+    if (result.success) redirect({ href: "/home", locale });
     if (!result?.success) {
       setError(result.message);
     }
@@ -26,37 +31,33 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"form">)
   return (
     <form action={handleSubmit} className={cn("flex flex-col gap-6", className)} {...props}>
       <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-2xl font-bold">Login to your account</h1>
-        <p className="text-muted-foreground text-sm text-balance">Enter your email below to login to your account</p>
+        <h1 className="text-2xl font-bold">{t("login.heading")}</h1>
+        <p className="text-muted-foreground text-sm text-balance">{t("login.subheading")}</p>
       </div>
 
-      {error && (
-        <div className="text-red-500 text-sm text-center">
-          {error || "An unknown error occurred. Please try again."}
-        </div>
-      )}
+      {error && <div className="text-red-500 text-sm text-center">{error || tCommon("error.unknown")}</div>}
 
       <div className="grid gap-6">
         <div className="grid gap-3">
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" name="email" type="email" placeholder="m@example.com" required />
+          <Label htmlFor="email">{t("email")}</Label>
+          <Input id="email" name="email" type="email" placeholder={t("emailPlaceholder")} required />
         </div>
         <div className="grid gap-3">
           <div className="flex items-center">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">{t("password")}</Label>
             <a href="#" className="ml-auto text-sm underline-offset-4 hover:underline">
-              Forgot your password?
+              {t("forgotPassword")}
             </a>
           </div>
           <Input id="password" name="password" type="password" required />
         </div>
         <Button type="submit" className="w-full" disabled={isPending}>
-          {isPending ? "Logging in..." : "Login"}
+          {isPending ? t("loggingIn") : t("login.button")}
         </Button>
       </div>
       {/* <div className="text-center text-sm">
         Don&apos;t have an account?{" "}
-        <Link href="/sign-up" className="underline underline-offset-4">
+        <Link href={{ href: '/sign-up', locale }} className="underline underline-offset-4">
           Sign up
         </Link>
       </div> */}
