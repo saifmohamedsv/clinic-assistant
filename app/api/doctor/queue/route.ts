@@ -1,17 +1,13 @@
-import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { getCurrentQueue, processScheduledReservations } from "@/services/queueService";
 
 export async function GET() {
   try {
-    const queue = await prisma.visit.findMany({
-      where: {
-        status: { in: ["PENDING", "IN_PROGRESS"] },
-      },
-      include: {
-        patient: true,
-      },
-      orderBy: { queueOrder: "asc" },
-    });
+    // Process any scheduled reservations that should be added to queue
+    await processScheduledReservations();
+
+    // Get current queue
+    const queue = await getCurrentQueue();
 
     return NextResponse.json(queue);
   } catch (error) {
