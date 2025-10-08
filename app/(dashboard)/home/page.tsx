@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import SectionCard from "@/components/pages/home/section-card";
 import { Users, Stethoscope, User, FileText } from "lucide-react";
 import useDashboardStats from "@/hooks/useDashboardStats";
-import { CreateReservationDialog } from "@/components/dialogs/create-reservation-dialog";
+import { CreateReservationDialog } from "@/components/dialog/create-reservation-dialog";
 
 export default function Dashboard() {
   const t = useTranslations("dashboard");
