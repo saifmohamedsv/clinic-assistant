@@ -58,7 +58,15 @@
     "title": "Settings",
     "description": "Manage your account settings and preferences.",
     "language": "Language",
-    "languageDescription": "Select your preferred language"
+    "languageDescription": "Select your preferred language",
+    "clinicName": "Clinic Name",
+    "visitPrice": "Visit Price",
+    "discountAmount": "Discount Amount",
+    "workingHours": "Working Hours",
+    "startTime": "Start Time",
+    "endTime": "End Time",
+    "saveSettings": "Save Settings",
+    "successMessage": "Settings saved successfully!"
   },
   "patients": {
     "loading": "Loading...",

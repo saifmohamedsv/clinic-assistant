@@ -35,7 +35,15 @@
     "title": "الإعدادات",
     "description": "إدارة إعدادات الحساب والتفضيلات.",
     "language": "اللغة",
-    "languageDescription": "اختر لغتك المفضلة"
+    "languageDescription": "اختر لغتك المفضلة",
+    "clinicName": "اسم العيادة",
+    "visitPrice": "سعر الزيارة",
+    "discountAmount": "مبلغ الخصم",
+    "workingHours": "ساعات العمل",
+    "startTime": "وقت البداية",
+    "endTime": "وقت النهاية",
+    "saveSettings": "حفظ الإعدادات",
+    "successMessage": "تم حفظ الإعدادات بنجاح!"
   },
   "patients": {
     "loading": "انتظر...",
