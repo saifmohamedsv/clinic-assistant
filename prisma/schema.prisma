@@ -41,8 +41,11 @@ model Reservation {
   doctorId   String   @db.ObjectId
   doctor     Doctor   @relation(fields: [doctorId], references: [id])
   reservedAt DateTime // scheduled time slot
+  duration   Int      @default(15) // appointment duration in minutes
   status     ReservationStatus @default(BOOKED)
+  notes      String?  // additional notes for the appointment
   createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
   visits Visit[]
   @@map("reservations")
 }
@@ -87,6 +90,7 @@ model Prescription {
 
 enum ReservationStatus {
   BOOKED
+  IN_PROGRESS
   CANCELED
   COMPLETED
   NO_SHOW
