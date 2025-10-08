@@ -31,7 +31,28 @@
   },
   "sidebar": {
     "logout": "Logout",
-    "home": "Home"
+    "home": "Home",
+    "patients": "Patients",
+    "appointments": "Appointments",
+    "records": "Records",
+    "settings": "Settings"
+  },
+  "createReservationDialog": {
+    "trigger": "New Appointment",
+    "title": "Create Reservation",
+    "description": "Search patient and create a reservation.",
+    "saving": "Saving...",
+    "saveReservation": "Save Reservation",
+    "selectPatientAlert": "Please select a patient.",
+    "success": "Reservation created successfully!",
+    "searchByPhone": "Search by Phone",
+    "phonePlaceholder": "Type phone number...",
+    "searching": "Searching...",
+    "selectPatient": "Select Patient",
+    "choosePatient": "Choose a patient",
+    "noPatientsFound": "No patients found.",
+    "complaint": "Complaint",
+    "complaintPlaceholder": "e.g. Strong Headache"
   },
   "settings": {
     "title": "Settings",
@@ -40,6 +61,7 @@
     "languageDescription": "Select your preferred language"
   },
   "patients": {
+    "loading": "Loading...",
     "columns": {
       "name": "Name",
       "phone": "Phone",

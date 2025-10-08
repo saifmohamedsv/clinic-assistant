@@ -27,10 +27,11 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
         const isValid = await bcrypt.compare(credentials.password as string, user.password as string);
         if (!isValid) throw new Error("Email or password is incorrect");
 
-        return { id: user.id, email: user.email, role: user.role, name: user.name };
+        return { ...user };
       },
     }),
   ],
+  //TODO: Add role to JWT and session
   callbacks: {
     async jwt({ token, user, account }) {
       if (user) token.role = (user as User).role;

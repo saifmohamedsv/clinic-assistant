@@ -5,7 +5,7 @@
   "breadcrumb": {
     "dashboard": "لوحة التحكم",
     "patients": "المرضى",
-    "settings" :"الإعدادات"
+    "settings": "الإعدادات"
   },
   "auth": {
     "signIn": "تسجيل الدخول",
@@ -38,6 +38,7 @@
     "languageDescription": "اختر لغتك المفضلة"
   },
   "patients": {
+    "loading": "انتظر...",
     "columns": {
       "name": "الاسم",
       "phone": "رقم الهاتف",
@@ -59,7 +60,29 @@
     }
   },
   "sidebar": {
-    "logout": "تسجيل الخروج"
+    "logout": "تسجيل الخروج",
+    "home": "الرئيسية",
+    "patients": "المرضى",
+    "appointments": "المواعيد",
+    "records": "السجلات",
+    "settings": "الإعدادات"
+  },
+  "createReservationDialog": {
+    "trigger": "موعد جديد",
+    "title": "إنشاء حجز",
+    "description": "ابحث عن مريض وأنشئ حجزًا.",
+    "saving": "جارٍ الحفظ...",
+    "saveReservation": "حفظ الحجز",
+    "selectPatientAlert": "يرجى اختيار مريض.",
+    "success": "تم إنشاء الحجز بنجاح!",
+    "searchByPhone": "البحث برقم الهاتف",
+    "phonePlaceholder": "اكتب رقم الهاتف...",
+    "searching": "جاري البحث...",
+    "selectPatient": "اختر المريض",
+    "choosePatient": "اختر مريضًا",
+    "noPatientsFound": "لا يوجد مرضى.",
+    "complaint": "الشكوى",
+    "complaintPlaceholder": "مثال: صداع شديد"
   },
   "common": {
     "error": {
