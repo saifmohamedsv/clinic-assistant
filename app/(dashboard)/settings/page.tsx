@@ -1,29 +1,13 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useState } from "react";
-import Breadcrumb from "@/components/shared/breadcrumb";
-import { Locale } from "@/types/locale";
-import { setLocaleCookie } from "@/lib/set-locale";
+import Breadcrumb from "@/components/layout/breadcrumb";
+import LanguageSelect from "@/components/pages/settings/language-select";
+import { WorkingHours } from "../../../components/pages/settings/working-hours";
 
 export default function SettingsPage() {
   const t = useTranslations("settings");
   const locale = useLocale();
-  const [selectedLanguage, setSelectedLanguage] = useState(locale);
-
-  const languages = [
-    { value: "en", label: "English" },
-    { value: "ar", label: "العربية" },
-  ];
-
-  const handleLanguageChange = async (value: Locale) => {
-    setLocaleCookie(value);
-    setSelectedLanguage(value);
-    // Reload the page to apply the new language
-    window.location.reload();
-  };
-
   return (
     <div className="space-y-6">
       <Breadcrumb items={["dashboard", "settings"]} />
@@ -33,24 +17,10 @@ export default function SettingsPage() {
       </div>
 
       <div className="space-y-4 max-w-md">
-        <div className="space-y-2">
-          <label htmlFor="language" className="text-sm font-medium">
-            {t("language")}
-          </label>
-          <Select value={selectedLanguage} onValueChange={handleLanguageChange}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Select language" />
-            </SelectTrigger>
-            <SelectContent>
-              {languages.map((lang) => (
-                <SelectItem key={lang.value} value={lang.value}>
-                  {lang.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+        <LanguageSelect locale={locale} />
       </div>
+
+      <WorkingHours />
     </div>
   );
 }

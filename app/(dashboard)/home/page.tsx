@@ -1,12 +1,11 @@
 "use client";
 import { useSession } from "next-auth/react";
-import Breadcrumb from "@/components/shared/breadcrumb";
+import Breadcrumb from "@/components/layout/breadcrumb";
 import { useTranslations } from "next-intl";
-import SectionCard from "@/components/pages/dashboard/home/section-card";
+import SectionCard from "@/components/pages/home/section-card";
 import { Users, Stethoscope, User, FileText } from "lucide-react";
 import useDashboardStats from "@/hooks/useDashboardStats";
-import { AddPatientDialog } from "@/components/shared/patients/add-patient-dialog";
-import { CreateReservationDialog } from "@/components/shared/patients/create-reservation";
+import { CreateReservationDialog } from "@/components/dialogs/create-reservation-dialog";
 
 export default function Dashboard() {
   const t = useTranslations("dashboard");
@@ -28,7 +27,6 @@ export default function Dashboard() {
         </div>
         {/* Quick Actions */}
         <div className="flex gap-2 mt-2 md:mt-0">
-          <AddPatientDialog />
           <CreateReservationDialog />
         </div>
       </div>
