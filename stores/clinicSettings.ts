@@ -9,7 +9,7 @@ export interface ClinicSettings {
     startTime: string;
     endTime: string;
   };
-  language: string;
+  workingDays: number[]; // Array of day numbers (0 = Sunday, 1 = Monday, etc.)
 }
 
 interface ClinicSettingsStore {
@@ -26,7 +26,7 @@ const defaultSettings: ClinicSettings = {
     startTime: "08:00",
     endTime: "17:00",
   },
-  language: "en",
+  workingDays: [1, 2, 3, 4, 5], // Monday to Friday
 };
 
 export const useClinicSettingsStore = create<ClinicSettingsStore>()(

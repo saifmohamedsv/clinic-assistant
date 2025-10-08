@@ -21,6 +21,7 @@ const clinicSettingsSchema = z.object({
     startTime: z.string().min(1, "Start time is required"),
     endTime: z.string().min(1, "End time is required"),
   }),
+  workingDays: z.array(z.number()).min(1, "At least one working day is required"),
 });
 
 type ClinicSettingsFormValues = z.infer<typeof clinicSettingsSchema>;
@@ -41,6 +42,7 @@ export function ClinicSettingsForm() {
         startTime: settings.workingHours.startTime,
         endTime: settings.workingHours.endTime,
       },
+      workingDays: settings.workingDays,
     },
   });
 
@@ -54,6 +56,7 @@ export function ClinicSettingsForm() {
         startTime: settings.workingHours.startTime,
         endTime: settings.workingHours.endTime,
       },
+      workingDays: settings.workingDays,
     });
   }, [settings, form]);
 
@@ -177,6 +180,51 @@ export function ClinicSettingsForm() {
                 )}
               />
             </div>
+          </div>
+
+          {/* Working Days */}
+          <div className="space-y-4">
+            <Label className="text-base font-medium">Working Days</Label>
+            <FormField
+              control={form.control}
+              name="workingDays"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Select working days</FormLabel>
+                  <FormControl>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                      {[
+                        { value: 0, label: "Sunday" },
+                        { value: 1, label: "Monday" },
+                        { value: 2, label: "Tuesday" },
+                        { value: 3, label: "Wednesday" },
+                        { value: 4, label: "Thursday" },
+                        { value: 5, label: "Friday" },
+                        { value: 6, label: "Saturday" },
+                      ].map((day) => (
+                        <label key={day.value} className="flex items-center space-x-2">
+                          <input
+                            type="checkbox"
+                            checked={field.value?.includes(day.value) || false}
+                            onChange={(e) => {
+                              const currentDays = field.value || [];
+                              if (e.target.checked) {
+                                field.onChange([...currentDays, day.value]);
+                              } else {
+                                field.onChange(currentDays.filter((d) => d !== day.value));
+                              }
+                            }}
+                            className="rounded border-gray-300"
+                          />
+                          <span className="text-sm">{day.label}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
 
           <LanguageSelect locale={locale} />
