@@ -90,6 +90,12 @@
       "noResults": "No results found"
     }
   },
+  "appointmentCalendar": {
+    "selectDate": "Select a date",
+    "loading": "Loading time slots...",
+    "noSlotsAvailable": "No time slots available for this date",
+    "selectDateToViewSlots": "Select a date to view available time slots"
+  },
   "common": {
     "error": {
       "unknown": "An unknown error occurred. Please try again."
