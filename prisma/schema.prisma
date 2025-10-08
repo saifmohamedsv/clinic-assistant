@@ -8,94 +8,69 @@ datasource db {
 }
 
 model User {
-  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
-  email         String?         @unique
-  password      String
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  role          Role            @default(RECEPTION)
+  email         String   @unique
+  password      String   // hashed
+  role          Role     @default(RECEPTION)
+  emailVerified Boolean  @default(false)
 
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-}
- 
-model Account {
-  id                String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId            String  @db.ObjectId
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.String
-  access_token      String? @db.String
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.String
-  session_state     String?
- 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
- 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
-  @@unique([provider, providerAccountId])
-}
- 
-model Session {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  sessionToken String   @unique
-  userId       String   @db.ObjectId
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
- 
-model VerificationToken {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  identifier String
-  token      String
-  expires    DateTime
- 
-  @@unique([identifier, token])
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("users")
 }
 
-enum Role {
-  RECEPTION
-  DOCTOR
-  ADMIN
-}
-
+ 
 model Patient {
   id            String       @id @default(auto()) @map("_id") @db.ObjectId
   name          String
   phone         String       @unique
   age           Int
   visits        Visit[]
+  reservations  Reservation[]
   prescriptions Prescription[]
   createdAt     DateTime     @default(now())
+  @@map("patients")
+}
+
+model Reservation {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  patientId  String   @db.ObjectId
+  patient    Patient  @relation(fields: [patientId], references: [id])
+  doctorId   String   @db.ObjectId
+  doctor     Doctor   @relation(fields: [doctorId], references: [id])
+  reservedAt DateTime // scheduled time slot
+  status     ReservationStatus @default(BOOKED)
+  createdAt  DateTime @default(now())
+  visits Visit[]
+  @@map("reservations")
 }
 
 model Visit {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
   patientId  String    @db.ObjectId
   patient    Patient   @relation(fields: [patientId], references: [id])
+  doctorId   String    @db.ObjectId
+  doctor     Doctor    @relation(fields: [doctorId], references: [id])
   queueOrder Int
   complaint  String?
   status     VisitStatus @default(PENDING)
   createdAt  DateTime  @default(now())
+  startedAt  DateTime?
   endedAt    DateTime?
+  reservationId String? @db.ObjectId
+  reservation   Reservation? @relation(fields: [reservationId], references: [id])
+  @@map("visits")
 }
 
-
-enum VisitStatus {
-  PENDING
-  IN_PROGRESS
-  COMPLETED
+model Doctor {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  specialty String?
+  visits    Visit[]
+  reservations Reservation[]
+  @@map("doctors")
 }
 
 model Prescription {
@@ -106,4 +81,27 @@ model Prescription {
   content    String // JSON or markdown template
   sentBySms  Boolean  @default(false)
   createdAt  DateTime @default(now())
+  @@map("prescriptions")
+}
+
+
+enum ReservationStatus {
+  BOOKED
+  CANCELED
+  COMPLETED
+  NO_SHOW
+}
+
+enum VisitStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELED
+}
+
+
+enum Role {
+  RECEPTION
+  DOCTOR
+  ADMIN
 }
