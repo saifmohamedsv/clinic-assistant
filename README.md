@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Clinic Assistant
+
+Clinic Assistant is a modern, role‑based clinic management app that streamlines patient intake, visit queues, and prescriptions. It uses Next.js 15 (App Router) and React 19 with credential authentication via NextAuth, a Prisma adapter on MongoDB, multilingual UX (English/Arabic) via next‑intl, and a responsive, accessible UI with Tailwind CSS and Radix UI.
+
+## Features
+
+- Patient management: create, list, search, and count patients
+- Visit queue: assign queue order, track visit status (pending/in‑progress/completed)
+- Prescriptions: record doctor notes and content, optional SMS flag
+- Authentication: credentials login with role propagation in JWT/session
+- Role‑based areas: `RECEPTION`, `DOCTOR`, `ADMIN`
+- Internationalization: `en` and `ar` locales with RTL support
+- Modern UI: Tailwind v4, Radix primitives, shadcn‑style components
+
+## Tech Stack
+
+- Next.js 15, React 19
+- NextAuth v5 (credentials), `@auth/prisma-adapter`
+- Prisma v6, MongoDB datasource
+- next‑intl for i18n
+- Tailwind CSS v4, Radix UI, Lucide icons
+- Zustand state management, TanStack Table for data grids
+
+## Project Structure
+
+- `app/` – App Router pages and API routes
+  - `app/api/` – REST endpoints for auth, patients, doctor queue, prescriptions, visits
+  - `app/(auth)` and `app/(dashboard)` – routed UI sections
+- `components/` – UI, layout, dialogs, tables, providers
+- `lib/` – auth and shared utilities
+- `prisma/` – Prisma schema
+- `messages/` – i18n message catalogs (`en`, `ar`)
+- `hooks/` – client hooks (language switch, data fetching)
+
+## Environment
+
+Create an `.env.local` file with the following variables:
+
+```env
+DATABASE_URL="mongodb+srv://<user>:<pass>@<cluster>/<db>?retryWrites=true&w=majority"
+NEXTAUTH_SECRET="your-long-random-secret"
+NEXTAUTH_URL="http://localhost:3000"
+```
 
 ## Getting Started
 
-First, run the development server:
+1. Install dependencies
+   ```bash
+   pnpm install # or yarn install / npm install
+   ```
+2. Generate Prisma client and push schema to MongoDB
+   ```bash
+   pnpm prisma generate
+   pnpm prisma db push
+   ```
+3. Run the dev server
+   ```bash
+   pnpm dev # or yarn dev / npm run dev
+   ```
+4. Open `http://localhost:3000`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Authentication
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Credentials provider (email/password). New users can sign up via the sign‑up page.
+- Roles are attached to JWT and mirrored to session for client access.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Internationalization
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Implemented via `next-intl`, with locale middleware and message catalogs in `messages/`.
+- Arabic is RTL‑aware and the UI adapts accordingly.
 
-## Learn More
+## Key API Endpoints (App Router)
 
-To learn more about Next.js, take a look at the following resources:
+- Auth: `app/api/auth/[...nextauth]/route.ts`
+- Patients: `app/api/patients` (CRUD, count, search)
+- Doctor queue: `app/api/doctor/queue`
+- Prescriptions: `app/api/prescriptions`
+- Visits: `app/api/visit`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `dev` – start development server
+- `build` – create production build
+- `start` – run production server
+- `lint` – run lints
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Recommended: Vercel. Set `DATABASE_URL`, `NEXTAUTH_URL`, and `NEXTAUTH_SECRET` in project settings.
+- Ensure MongoDB network access allows Vercel egress IPs or use Atlas.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notes
+
+- The Prisma schema targets MongoDB; `prisma db push` is used instead of migrations.
+- Sensitive data (secrets, connection strings) must not be committed.
