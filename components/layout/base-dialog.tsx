@@ -20,8 +20,8 @@ interface BaseDialogProps {
   children: ReactNode;
   onSubmit?: (e: React.FormEvent) => void;
   footer?: ReactNode; // if you want to override default footer
-  open: boolean;
-  onOpenChange: (state: boolean) => void;
+  open?: boolean;
+  onOpenChange?: (state: boolean) => void;
 }
 
 export function BaseDialog({
@@ -35,11 +35,11 @@ export function BaseDialog({
   onOpenChange,
 }: BaseDialogProps) {
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open || false} onOpenChange={onOpenChange}>
       <form>
         <DialogTrigger asChild>{trigger}</DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
+          <DialogHeader className="rtl:text-right">
             <DialogTitle>{title}</DialogTitle>
             {description && <DialogDescription>{description}</DialogDescription>}
           </DialogHeader>

@@ -6,28 +6,28 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { User } from "@prisma/client";
-import { useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 type NavItem = {
   icon: React.ElementType;
-  label: string;
+  label: "home" | "patients" | "appointments" | "records" | "settings";
   href: string;
 };
 
 const navItems: NavItem[] = [
-  { icon: Home, label: "Dashboard", href: "/home" },
-  { icon: Users, label: "Patients", href: "/patients" },
-  { icon: Calendar, label: "Appointments", href: "/appointments" },
-  { icon: FileText, label: "Records", href: "/records" },
-  { icon: Settings, label: "Settings", href: "/settings" },
+  { icon: Home, label: "home", href: "/home" },
+  { icon: Users, label: "patients", href: "/patients" },
+  { icon: Calendar, label: "appointments", href: "/appointments" },
+  { icon: FileText, label: "records", href: "/records" },
+  { icon: Settings, label: "settings", href: "/settings" },
 ];
 
 const Sidebar = () => {
-  const locale = useLocale();
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(true);
   const session = useSession();
+  const t = useTranslations("sidebar");
 
   const user = session?.data?.user as User;
 
@@ -41,7 +41,7 @@ const Sidebar = () => {
   return (
     <TooltipProvider>
       <div
-        className={`h-full bg-background border-2 rounded-lg shadow-lg flex flex-col py-4 transition-all duration-300 ${
+        className={`h-full bg-card border rounded-lg shadow-lg flex flex-col py-4 transition-all duration-300 ${
           isCollapsed ? "w-16" : "w-64"
         }`}
       >
@@ -66,13 +66,15 @@ const Sidebar = () => {
                         className={`justify-start h-12 rounded-lg ${isCollapsed ? "w-full px-0" : "w-full px-4"}`}
                       >
                         <item.icon className="h-5 w-5" />
-                        {!isCollapsed && <span className="font-medium ml-3">{item.label}</span>}
+                        {!isCollapsed && (
+                          <span className="font-medium ms-3">{item.label === "home" ? t("home") : t(item.label)}</span>
+                        )}
                       </Button>
                     </Link>
                   </TooltipTrigger>
                   {isCollapsed && (
                     <TooltipContent side="right">
-                      <p>{item.label}</p>
+                      <p>{item.label === "home" ? t("home") : t(item.label)}</p>
                     </TooltipContent>
                   )}
                 </Tooltip>
@@ -113,17 +115,17 @@ const Sidebar = () => {
           <Tooltip>
             <TooltipTrigger asChild>
               <Button
-                onClick={() => signOut({ redirect: true, callbackUrl: `/${locale}/sign-in` })}
+                onClick={() => signOut({ redirect: true, callbackUrl: "/sign-in" })}
                 variant="ghost"
                 className={`justify-start h-12 rounded-lg ${isCollapsed ? "w-full px-0" : "w-full px-4"}`}
               >
                 <LogOut className="h-5 w-5" />
-                {!isCollapsed && <span className="font-medium ml-3">Logout</span>}
+                {!isCollapsed && <span className="font-medium ml-3">{t("logout")}</span>}
               </Button>
             </TooltipTrigger>
             {isCollapsed && (
               <TooltipContent side="right">
-                <p>Logout</p>
+                <p>{t("logout")}</p>
               </TooltipContent>
             )}
           </Tooltip>

@@ -1,7 +1,6 @@
 "use client";
 
 import { Visit } from "@prisma/client";
-import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 
 import {
@@ -13,9 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { DataTableColumnHeader } from "@/components/shared/data-table-column-header";
 
-// This type is used to define the shape of our data.
 interface Patient {
   id: string;
   name: string;
@@ -26,16 +23,11 @@ interface Patient {
 
 type TranslationFunction = (key: string) => string;
 
-export const getColumns = (t: TranslationFunction): ColumnDef<Patient>[] => {
+export const getColumns = (t: TranslationFunction) => {
   return [
     {
       accessorKey: "name",
-      header: ({ column }) => (
-        <DataTableColumnHeader 
-          column={column} 
-          title={t("columns.name")} 
-        />
-      ),
+      header: t("columns.name"),
     },
     {
       accessorKey: "phone",
@@ -48,11 +40,11 @@ export const getColumns = (t: TranslationFunction): ColumnDef<Patient>[] => {
     {
       accessorKey: "visits",
       header: t("columns.visitCount"),
-      accessorFn: (data) => data.visits.length,
+      accessorFn: (data: Patient) => data.visits.length,
     },
     {
       id: "actions",
-      cell: () => {
+      cell: (): React.ReactNode => {
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -66,9 +58,7 @@ export const getColumns = (t: TranslationFunction): ColumnDef<Patient>[] => {
               <DropdownMenuSeparator />
               <DropdownMenuItem>{t("actions.viewDetails")}</DropdownMenuItem>
               <DropdownMenuItem>{t("actions.edit")}</DropdownMenuItem>
-              <DropdownMenuItem className="text-destructive">
-                {t("actions.delete")}
-              </DropdownMenuItem>
+              <DropdownMenuItem className="text-destructive">{t("actions.delete")}</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         );
